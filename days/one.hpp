@@ -4,15 +4,17 @@
 #include "day.hpp"
 
 namespace aoc {
-    class One : public Day<int> {
+    class One final : public Day<int> {
     public:
         One();
 
-        void _parse() override;
+        ~One() final;
 
-        int one() override;
+        void _parse() final;
 
-        int two() override;
+        int one() final;
+
+        int two() final;
 
     };
 } // aoc

@@ -12,11 +12,13 @@ namespace aoc {
             this->_day = day;
         }
 
+        virtual ~Day() = default;
+
         T solve(int puzzle) {
             this->_parse();
             auto answer = puzzle == 1 ? this->one() : this->two();
             std::cout << "day " << this->_day << ", puzzle " << puzzle << std::endl;
-            std::cout << "\t" << answer << std::endl;
+            std::cout << "\tAnswer = " << answer << std::endl;
             return answer;
         }
 
