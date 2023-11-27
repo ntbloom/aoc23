@@ -4,7 +4,7 @@
 #include "day.hpp"
 
 namespace aoc {
-    class Template final : public Day<int> {
+    class Template final : public Day<TYPE> {
     public:
         Template();
 
@@ -12,9 +12,9 @@ namespace aoc {
 
         void _parse() final;
 
-        int one() final;
+        TYPE one() final;
 
-        int two() final;
+        TYPE two() final;
 
     };
 } // aoc

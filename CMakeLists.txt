@@ -6,5 +6,6 @@ set(CMAKE_CXX_STANDARD 23)
 add_executable(aoc23
         main.cpp
         one.cpp
+        two.cpp
 )
 include_directories(days)

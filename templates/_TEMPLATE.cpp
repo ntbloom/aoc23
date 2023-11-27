@@ -1,16 +1,16 @@
 #include "template.hpp"
 
-aoc::Template::Template() : Day<int>(X) {
+aoc::Template::Template() : Day<TYPE>(X) {
 }
 
 void aoc::Template::_parse() {
 }
 
-int aoc::Template::one() {
+TYPE aoc::Template::one() {
     return -1;
 }
 
-int aoc::Template::two() {
+TYPE aoc::Template::two() {
     return -2;
 }
 
