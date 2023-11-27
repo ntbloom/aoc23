@@ -6,7 +6,7 @@ _cmake:
 
 .PHONY:_build
 _build:
-	make -C $(OUTDIR) -j 8
+	make -C $(OUTDIR) -j 16
 
 .PHONY:clean
 clean:
