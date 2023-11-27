@@ -6,12 +6,17 @@ _cmake:
 
 .PHONY:_build
 _build:
-	make -C $(OUTDIR)
+	make -C $(OUTDIR) -j 8
 
 .PHONY:clean
 clean:
 	rm -rf $(OUTDIR)
 
+.PHONY:build
 build: _cmake _build
+
+.PHONY:test
+test:
+	$(OUTDIR)/mainTest
 
 .DEFAULT_GOAL:= build

@@ -48,6 +48,7 @@ main(int argc, char **argv) {
     assert(day > 0 && day <= 25);
     assert(puzzle == 1 || puzzle == 2);
 
+    /* for now just use integer solution. */
     aoc::Day<int> *intSolution{};
 
     switch (day) {
