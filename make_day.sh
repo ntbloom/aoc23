@@ -25,7 +25,7 @@ while getopts "i:s:" o; do
             ;;
     esac
 done
-#shift $((OPTIND-1))
+shift $((OPTIND-1))
 
 if [ -z "${num}" ] || [ -z "${str}" ]; then
     usage
@@ -35,8 +35,24 @@ fi
 TEMPLATE_DIR=templates
 TEMPLATE_HEADER=$TEMPLATE_DIR/_TEMPLATE.hpp
 TEMPLATE_SRC=$TEMPLATE_DIR/_TEMPLATE.cpp
-
-HEADER=days/$str.txt
+HEADER=days/$str.hpp
 SRC=$str.cpp
-echo $HEADER
-echo $SRC
+strAllUpper=${str^^}
+strCapitalized=${str^}
+
+make_files()
+{
+  cp $TEMPLATE_HEADER $HEADER
+  cp $TEMPLATE_SRC $SRC
+}
+
+findReplace()
+{
+  file=$1
+  sed -i "s/Template/$strCapitalized/g" "$file"
+  sed -i "s/TEMPLATE/$strAllUpper/g" "$file"
+}
+
+make_files
+findReplace "$HEADER"
+findReplace "$SRC"
