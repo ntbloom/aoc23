@@ -3,20 +3,21 @@
 
 #include "day.hpp"
 
-namespace aoc {
-    class Template final : public Day<TYPE> {
-    public:
-        Template();
+namespace aoc
+{
+class Template final : public Day<TYPE>
+{
+  public:
+    Template ();
 
-        ~Template() final;
+    ~Template () final;
 
-        void _parse() final;
+    void _parse () final;
 
-        TYPE one() final;
+    TYPE one () final;
 
-        TYPE two() final;
-
-    };
+    TYPE two () final;
+};
 } // aoc
 
-#endif //AOC23_TEMPLATE_HPP
+#endif // AOC23_TEMPLATE_HPP

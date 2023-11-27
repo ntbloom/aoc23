@@ -3,20 +3,21 @@
 
 #include "day.hpp"
 
-namespace aoc {
-    class One final : public Day<int> {
-    public:
-        One();
+namespace aoc
+{
+class One final : public Day<int>
+{
+  public:
+    One ();
 
-        ~One() final;
+    ~One () final;
 
-        void _parse() final;
+    void _parse () final;
 
-        int one() final;
+    int one () final;
 
-        int two() final;
-
-    };
+    int two () final;
+};
 } // aoc
 
-#endif //AOC23_ONE_HPP
+#endif // AOC23_ONE_HPP
