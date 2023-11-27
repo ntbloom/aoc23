@@ -1,2 +1,3 @@
 # aoc23
-advent of code for 2023
+[Advent of Code 2023](https://adventofcode.com/2023/) in C++.
+
