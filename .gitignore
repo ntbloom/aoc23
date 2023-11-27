@@ -2,5 +2,5 @@
 *.swp
 cmake-build-debug/
 build/
-inputs/
+inputs/*
 !inputs/.gitkeep
