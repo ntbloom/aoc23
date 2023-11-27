@@ -49,8 +49,9 @@ make_files()
 findReplace()
 {
   file=$1
-  sed -i "s/Template/$strCapitalized/g" "$file"
-  sed -i "s/TEMPLATE/$strAllUpper/g" "$file"
+  sed -i "s/Template/$strCapitalized" "$file"
+  sed -i "s/TEMPLATE/$strAllUpper" "$file"
+  set -i "s/template/$str" "$file"
 }
 
 make_files
