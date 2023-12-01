@@ -18,6 +18,11 @@ clean:
 .PHONY:build
 build: _cmake _build
 
+puzzle=1
+.PHONY:answer
+answer: build
+	@$(EXE) -d $(day) -p $(puzzle) || echo "usage: make day=X puzzle=Y"
+
 .PHONY:test
 test:
 	$(OUTDIR)/mainTest

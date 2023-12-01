@@ -30,6 +30,8 @@ main (int argc, char **argv)
             return help (-1);
         }
 
+    char *input;
+    char *end;
     while ((option = getopt_long (argc, argv, "hd:p:", longOptions, nullptr)) != -1)
         {
             switch (option)
@@ -37,10 +39,12 @@ main (int argc, char **argv)
                 case 'h':
                     return help (0);
                 case 'd':
-                    day = atoi (optarg);
+                    input = optarg;
+                    day = (int)strtol (input, &end, 10);
                     break;
                 case 'p':
-                    puzzle = atoi (optarg);
+                    input = optarg;
+                    puzzle = (int)strtol (input, &end, 10);
                     break;
                 default:
                     return help (EINVAL);
@@ -64,6 +68,7 @@ main (int argc, char **argv)
 
     if (intSolution)
         {
+
             intSolution->solve (puzzle);
             delete intSolution;
             return 0;

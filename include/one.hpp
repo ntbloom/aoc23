@@ -2,9 +2,13 @@
 #define AOC23_ONE_HPP
 
 #include "day.hpp"
+#include <array>
 
 namespace aoc
 {
+
+static std::array<char, 2> intermediate = { 'X', 'X' };
+
 class One final : public Day<int>
 {
   public:
@@ -17,6 +21,10 @@ class One final : public Day<int>
     int one () final;
 
     int two () final;
+
+    static int calibrate (const std::string &input);
+
+    static int recalibrate (const std::string &input);
 };
 } // aoc
 
