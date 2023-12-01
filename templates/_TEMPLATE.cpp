@@ -2,11 +2,6 @@
 
 aoc::Template::Template () : Day<TYPE> (X) {}
 
-void
-aoc::Template::_parse ()
-{
-}
-
 TYPE
 aoc::Template::one ()
 {

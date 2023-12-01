@@ -12,8 +12,6 @@ class Template final : public Day<TYPE>
 
     ~Template () final;
 
-    void _parse () final;
-
     TYPE one () final;
 
     TYPE two () final;

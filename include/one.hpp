@@ -16,8 +16,6 @@ class One final : public Day<int>
 
     ~One () final;
 
-    void _parse () final;
-
     int one () final;
 
     int two () final;

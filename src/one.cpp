@@ -1,15 +1,9 @@
 #include "one.hpp"
-#include <cstring>
 #include <format>
 #include <fstream>
 #include <vector>
 
 aoc::One::One () : Day<int> (1) {}
-
-void
-aoc::One::_parse ()
-{
-}
 
 int
 aoc::One::one ()

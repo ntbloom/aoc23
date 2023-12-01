@@ -47,8 +47,6 @@ template <typename T> class Day
 
     virtual T two () = 0;
 
-    virtual void _parse () = 0;
-
     int _num;
     std::filesystem::path _inputFile;
 };
