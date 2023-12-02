@@ -1,10 +1,16 @@
 #ifndef AOC23_DAY_HPP
 #define AOC23_DAY_HPP
 
+#include <chrono>
 #include <filesystem>
+#include <fstream>
 #include <iostream>
 #include <sstream>
 #include <string>
+
+typedef std::chrono::steady_clock timer_t;
+typedef std::chrono::duration<long, std::ratio<1, 1000000000> > nanosecDuration_t;
+typedef std::chrono::time_point<timer_t, nanosecDuration_t> timestamp_t;
 
 namespace aoc
 {
@@ -24,30 +30,51 @@ template <typename T> class Day
                 err << absolute (this->_inputFile) << " doesn't exist";
                 throw std::runtime_error (err.str ());
             }
+        this->_filestream.open (this->_inputFile);
+        if (!this->_filestream.is_open ())
+            {
+                throw std::runtime_error ("unable to open file");
+            }
     }
 
-    virtual ~Day () = default;
+    virtual ~Day () { this->_filestream.close (); };
 
     T
     solve (int puzzle)
     {
+        timestamp_t start, stop;
+
+        start = timer_t::now ();
         auto answer = puzzle == 1 ? this->one () : this->two ();
+        stop = timer_t::now ();
+        auto duration = stop - start;
+
         std::string border{ "**************************************" };
         std::cout << border << std::endl;
-        std::cout << "Day " << this->_num << "/Puzzle " << puzzle << std::endl;
+        std::cout << "            Day " << this->_num << "/Puzzle " << puzzle << std::endl;
         std::cout << "Answer = " << answer << std::endl;
+        std::cout << "Duration (μs) = " << duration.count () / 1000 << std::endl;
         std::cout << border << std::endl;
 
         return answer;
     }
 
   protected:
-    virtual T one () = 0;
+    virtual T
+    one ()
+    {
+        return 0;
+    };
 
-    virtual T two () = 0;
+    virtual T
+    two ()
+    {
+        return 0;
+    };
 
     int _num;
     std::filesystem::path _inputFile;
+    std::ifstream _filestream;
 };
 
 } // aoc

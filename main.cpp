@@ -72,7 +72,6 @@ main (int argc, char **argv)
 
     if (intSolution)
         {
-
             intSolution->solve (puzzle);
             delete intSolution;
             return 0;
@@ -85,6 +84,5 @@ main (int argc, char **argv)
             return 0;
         }
 
-    /* holding pattern for solutions that return something besides an int */
     return EINVAL;
 }

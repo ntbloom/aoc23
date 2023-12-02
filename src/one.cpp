@@ -1,4 +1,5 @@
 #include "one.hpp"
+#include <cassert>
 #include <format>
 #include <fstream>
 #include <vector>
@@ -8,36 +9,27 @@ aoc::One::One () : Day<int> (1) {}
 int
 aoc::One::one ()
 {
-    std::ifstream file;
-    file.open (this->_inputFile);
     int answer = 0;
-    if (file.is_open ())
+    assert (this->_filestream);
+    while (this->_filestream)
         {
-            while (file)
-                {
-                    std::string line;
-                    std::getline (file, line);
-                    answer += One::calibrate (line);
-                }
+            std::string line;
+            std::getline (this->_filestream, line);
+            answer += One::calibrate (line);
         }
-
     return answer;
 }
 
 int
 aoc::One::two ()
 {
-    std::ifstream file;
-    file.open (this->_inputFile);
     int answer = 0;
-    if (file.is_open ())
+    assert (this->_filestream);
+    while (this->_filestream)
         {
-            while (file)
-                {
-                    std::string line;
-                    std::getline (file, line);
-                    answer += One::recalibrate (line);
-                }
+            std::string line;
+            std::getline (this->_filestream, line);
+            answer += One::recalibrate (line);
         }
 
     return answer;

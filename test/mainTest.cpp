@@ -1,21 +1,32 @@
 #include "one.hpp"
 #include "two.hpp"
+#include <fstream>
 #include <gtest/gtest.h>
 
 using namespace aoc;
 
-TEST (MainTest, TestOne)
+TEST (Test_Solutions, One_ONE)
 {
     One one{};
-    EXPECT_EQ (one.one (), 54697);
-    EXPECT_EQ (one.two (), 54885);
+    EXPECT_EQ (one.solve (1), 54697);
 }
 
-TEST (MainTest, TestTwo)
+TEST (Test_Solutions, One_TWO)
+{
+    One one{};
+    EXPECT_EQ (one.solve (2), 54885);
+}
+
+TEST (Test_Solutions, Two_ONE)
 {
     Two two{};
-    EXPECT_EQ (two.one (), 2283);
-    EXPECT_EQ (two.two (), 78669);
+    EXPECT_EQ (two.solve (1), 2283);
+}
+
+TEST (Test_Solutions, Two_TWO)
+{
+    Two two{};
+    EXPECT_EQ (two.solve (2), 78669);
 }
 
 TEST (TestOne, TestCalibration)

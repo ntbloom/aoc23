@@ -1,4 +1,5 @@
 #include "two.hpp"
+#include <cassert>
 #include <fstream>
 #include <string>
 #include <vector>
@@ -8,22 +9,18 @@ aoc::Two::Two () : Day<size_t> (2) {}
 size_t
 aoc::Two::one ()
 {
-    std::ifstream filestream;
-    filestream.open (this->_inputFile);
     size_t answer = 0;
-    if (filestream.is_open ())
+    assert (this->_filestream);
+    while (this->_filestream)
         {
-            while (filestream)
+            std::string line{};
+            std::getline (this->_filestream, line);
+            if (!std::equal (line.begin (), line.end (), ""))
                 {
-                    std::string line{};
-                    std::getline (filestream, line);
-                    if (!std::equal (line.begin (), line.end (), ""))
+                    auto res = Two::isPossible (line);
+                    if (res.at (1) == POSSIBLE)
                         {
-                            auto res = Two::isPossible (line);
-                            if (res.at (1) == POSSIBLE)
-                                {
-                                    answer += res.at (0);
-                                }
+                            answer += res.at (0);
                         }
                 }
         }
@@ -34,19 +31,15 @@ aoc::Two::one ()
 size_t
 aoc::Two::two ()
 {
-    std::ifstream filestream;
-    filestream.open (this->_inputFile);
     size_t answer = 0;
-    if (filestream.is_open ())
+    assert (this->_filestream);
+    while (this->_filestream)
         {
-            while (filestream)
+            std::string line{};
+            std::getline (this->_filestream, line);
+            if (!std::equal (line.begin (), line.end (), ""))
                 {
-                    std::string line{};
-                    std::getline (filestream, line);
-                    if (!std::equal (line.begin (), line.end (), ""))
-                        {
-                            answer += Two::minPower (line);
-                        }
+                    answer += Two::minPower (line);
                 }
         }
 
