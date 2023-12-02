@@ -31,7 +31,6 @@ template <typename T> class Day
     T
     solve (int puzzle)
     {
-        this->_parse ();
         auto answer = puzzle == 1 ? this->one () : this->two ();
         std::string border{ "**************************************" };
         std::cout << border << std::endl;

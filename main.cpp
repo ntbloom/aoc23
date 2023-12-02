@@ -4,6 +4,7 @@
 
 #include "day.hpp"
 #include "one.hpp"
+#include "two.hpp"
 
 int
 help (int rc)
@@ -54,13 +55,16 @@ main (int argc, char **argv)
     assert (day > 0 && day <= 25);
     assert (puzzle == 1 || puzzle == 2);
 
-    /* for now just use integer solution. */
     aoc::Day<int> *intSolution{};
+    aoc::Day<size_t> *sizetSolution{};
 
     switch (day)
         {
         case 1:
             intSolution = new aoc::One ();
+            break;
+        case 2:
+            sizetSolution = new aoc::Two ();
             break;
         default:
             throw std::runtime_error ("Illegal day!");
@@ -71,6 +75,13 @@ main (int argc, char **argv)
 
             intSolution->solve (puzzle);
             delete intSolution;
+            return 0;
+        }
+
+    if (sizetSolution)
+        {
+            sizetSolution->solve (puzzle);
+            delete sizetSolution;
             return 0;
         }
 
