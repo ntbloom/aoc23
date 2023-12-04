@@ -4,6 +4,7 @@
 
 #include "day.hpp"
 #include "one.hpp"
+#include "three.hpp"
 #include "two.hpp"
 
 int
@@ -65,6 +66,9 @@ main (int argc, char **argv)
             break;
         case 2:
             sizetSolution = new aoc::Two ();
+            break;
+        case 3:
+            sizetSolution = new aoc::Three ();
             break;
         default:
             throw std::runtime_error ("Illegal day!");

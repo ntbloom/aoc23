@@ -8,9 +8,9 @@
 #include <sstream>
 #include <string>
 
-typedef std::chrono::steady_clock timer_t;
+typedef std::chrono::steady_clock steadyTimer_t;
 typedef std::chrono::duration<long, std::ratio<1, 1000000000> > nanosecDuration_t;
-typedef std::chrono::time_point<timer_t, nanosecDuration_t> timestamp_t;
+typedef std::chrono::time_point<steadyTimer_t, nanosecDuration_t> timestamp_t;
 
 namespace aoc
 {
@@ -44,9 +44,9 @@ template <typename T> class Day
     {
         timestamp_t start, stop;
 
-        start = timer_t::now ();
+        start = steadyTimer_t::now ();
         auto answer = puzzle == 1 ? this->one () : this->two ();
-        stop = timer_t::now ();
+        stop = steadyTimer_t::now ();
         auto duration = stop - start;
 
         std::string border{ "**************************************" };

@@ -1,4 +1,5 @@
 #include "one.hpp"
+#include "three.hpp"
 #include "two.hpp"
 #include <fstream>
 #include <gtest/gtest.h>
@@ -29,9 +30,19 @@ TEST (Test_Solutions, Two_TWO)
     EXPECT_EQ (two.solve (2), 78669);
 }
 
+TEST (Test_Solutions, Three_ONE)
+{
+    Three three{};
+    EXPECT_EQ (three.solve (1), 533784);
+}
+
+TEST (Test_Solutions, Three_TWO)
+{
+    Three three{};
+    EXPECT_EQ (three.solve (2), 78826761);
+}
 TEST (TestOne, TestCalibration)
 {
-    EXPECT_EQ (One::calibrate ("1abc2"), 12);
     EXPECT_EQ (One::calibrate ("pqr3stu8vwx"), 38);
     EXPECT_EQ (One::calibrate ("a1b2c3d4e5f"), 15);
     EXPECT_EQ (One::calibrate ("treb7uchet"), 77);
@@ -96,5 +107,68 @@ TEST (TestTwo, TestPower)
     for (auto i = 0; i < cases.size (); i++)
         {
             ASSERT_EQ (cases.at (i), expected.at (i));
+        }
+}
+
+TEST (TestThree, TestProcessLine)
+{
+    // clang-format off
+    std::vector<std::string>inputs{
+        "467..114..",
+        "...*......",
+        "..35..633.",
+        "......#...",
+        "617*......",
+        ".....+.58.",
+        "..592.....",
+        "......755.",
+        "...$.*....",
+        ".664.598..",
+    };
+    // clang-format on
+    std::vector<size_t> expectedNumbers{
+        114, 467, 633, 35, 617, 58, 592, 755, 598, 664,
+    };
+    possible poss{};
+    std::string empty{};
+    for (auto i = 0; i < inputs.size (); i++)
+        {
+            auto above = i == 0 ? empty : inputs.at (i - 1);
+            auto current = inputs.at (i);
+            auto below = i == inputs.size () - 1 ? empty : inputs.at (i + 1);
+            Three::processLine (i, above, current, below, &poss);
+        }
+
+    std::vector<size_t> actualNumbers{};
+    for (const auto &p : poss)
+        {
+            actualNumbers.push_back (p->number);
+        }
+    ASSERT_EQ (expectedNumbers.size (), actualNumbers.size ()) << "parsed incorrect qty of numbers";
+    for (auto i = 0; i < expectedNumbers.size (); i++)
+        {
+            ASSERT_EQ (expectedNumbers.at (i), actualNumbers.at (i));
+        }
+
+    // check some positional stuff
+    ASSERT_EQ (poss.at (0)->x, 5);
+    ASSERT_EQ (poss.at (0)->y, 0);
+
+    ASSERT_EQ (poss.at (1)->x, 0);
+    ASSERT_EQ (poss.at (1)->y, 0);
+
+    ASSERT_EQ (poss.at (3)->x, 2);
+    ASSERT_EQ (poss.at (3)->y, 2);
+
+    for (auto pn : poss)
+        {
+            if (pn->number == 114 || pn->number == 58)
+                {
+                    ASSERT_FALSE (pn->valid);
+                }
+            else
+                {
+                    ASSERT_TRUE (pn->valid);
+                }
         }
 }
