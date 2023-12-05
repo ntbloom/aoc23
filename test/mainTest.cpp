@@ -1,8 +1,12 @@
-#include "one.hpp"
-#include "three.hpp"
-#include "two.hpp"
 #include <fstream>
 #include <gtest/gtest.h>
+
+// clang-format off
+#include "one.hpp"
+#include "two.hpp"
+#include "three.hpp"
+#include "four.hpp"
+// clang-format on
 
 using namespace aoc;
 
@@ -41,6 +45,19 @@ TEST (Test_Solutions, Three_TWO)
     Three three{};
     EXPECT_EQ (three.solve (2), 78826761);
 }
+
+TEST (Test_Solutions, Four_ONE)
+{
+    Four four{};
+    EXPECT_EQ (four.solve (1), 22897);
+}
+
+TEST (Test_Solutions, Four_TWO)
+{
+    Four four{};
+    EXPECT_EQ (four.solve (2), 5095824);
+}
+
 TEST (TestOne, TestCalibration)
 {
     EXPECT_EQ (One::calibrate ("pqr3stu8vwx"), 38);
@@ -171,4 +188,44 @@ TEST (TestThree, TestProcessLine)
                     ASSERT_TRUE (pn->valid);
                 }
         }
+}
+
+TEST (TestFour, TestRegex)
+{
+    // clang-format off
+    std::string input ("Card   1: 33 34 29 52 91  7 31 42  2  6 | 53 52  6 96 42 91  2 23  7 38 90 28 31 51  1 26 33 22 95 34 29 77 32 86  3");
+    // clang-format on
+    numbers winners{}, yours{};
+    numbers expWinners{ 33, 34, 29, 52, 91, 7, 31, 42, 2, 6 };
+    numbers expYours{
+        53, 52, 6,  96, 42, 91, 2,  23, 7,  38, 90, 28, 31,
+        51, 1,  26, 33, 22, 95, 34, 29, 77, 32, 86, 3,
+    };
+    Four::getNums (input, &winners, &yours);
+    ASSERT_EQ (winners, expWinners);
+    ASSERT_EQ (yours, expYours);
+}
+
+TEST (TestFour, TestGetNum)
+{
+    std::vector<size_t> expected{ 0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512 };
+    for (auto i = 0; i < 11; i++)
+        {
+
+            ASSERT_EQ (Four::getFactor (i), expected.at (i));
+        }
+}
+
+TEST (TestFour, TestMatches)
+{
+    aoc::Four four{};
+    auto card1 = four.cards[0];
+    ASSERT_EQ (card1.idx, 0);
+    ASSERT_EQ (card1.winners, 10);
+    auto card10 = four.cards[9];
+    ASSERT_EQ (card10.idx, 9);
+    ASSERT_EQ (card10.winners, 0);
+    auto card5 = four.cards[4];
+    ASSERT_EQ (card5.idx, 4);
+    ASSERT_EQ (card5.winners, 10);
 }

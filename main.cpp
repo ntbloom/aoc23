@@ -2,10 +2,13 @@
 #include <getopt.h>
 #include <iostream>
 
+// clang-format off
 #include "day.hpp"
 #include "one.hpp"
-#include "three.hpp"
 #include "two.hpp"
+#include "three.hpp"
+#include "four.hpp"
+// clang-format on
 
 int
 help (int rc)
@@ -69,6 +72,9 @@ main (int argc, char **argv)
             break;
         case 3:
             sizetSolution = new aoc::Three ();
+            break;
+        case 4:
+            sizetSolution = new aoc::Four ();
             break;
         default:
             throw std::runtime_error ("Illegal day!");

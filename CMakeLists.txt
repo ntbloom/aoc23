@@ -4,6 +4,8 @@ project(aoc23)
 set(CMAKE_CXX_STANDARD 20)
 add_compile_options(
         -DLIBCXX_ENABLE_INCOMPLETE_FEATURES=ON
+        -Wimplicit-fallthrough
+        -Werror
 )
 
 file(GLOB SRC src/*.cpp)

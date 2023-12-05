@@ -1,6 +1,7 @@
 #ifndef AOC23_DAY_HPP
 #define AOC23_DAY_HPP
 
+#include <cassert>
 #include <chrono>
 #include <filesystem>
 #include <fstream>

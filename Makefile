@@ -22,7 +22,7 @@ build: _cmake _build
 .PHONY:answer
 ifdef puzzle
 answer:
-	@$(EXE) -d $(day) -p $(puzzle) || echo "usage: make day=X puzzle=Y"
+	@$(EXE) -d $(day) -p $(puzzle) #|| echo "usage: make day=X puzzle=Y"
 else
 answer:
 	@$(EXE) -d $(day) -p 1
