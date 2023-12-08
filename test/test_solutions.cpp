@@ -83,3 +83,15 @@ TEST (Test_Solutions, Six_TWO)
     Six six{};
     EXPECT_EQ (six.solve (2), 39594072);
 }
+
+TEST (Test_Solutions, Seven_ONE)
+{
+    Seven seven{};
+    EXPECT_EQ (seven.solve (1), 251927063);
+}
+
+TEST (Test_Solutions, Seven_TWO)
+{
+    Seven seven{};
+    EXPECT_EQ (seven.solve (2), 255632664);
+}
