@@ -27,8 +27,9 @@ enable_testing()
 
 add_executable(
         mainTest
-        test/mainTest.cpp
         ${SRC}
+        test/test_solutions.cpp
+        test/unit_tests.cpp
 )
 target_link_libraries(
         mainTest
