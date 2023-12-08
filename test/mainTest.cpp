@@ -6,6 +6,7 @@
 #include "two.hpp"
 #include "three.hpp"
 #include "four.hpp"
+#include "five.hpp"
 // clang-format on
 
 using namespace aoc;
@@ -56,6 +57,12 @@ TEST (Test_Solutions, Four_TWO)
 {
     Four four{};
     EXPECT_EQ (four.solve (2), 5095824);
+}
+
+TEST (Test_Solutions, Five_ONE)
+{
+    Five five{};
+    EXPECT_EQ (five.solve (1), 177942185);
 }
 
 TEST (TestOne, TestCalibration)
@@ -228,4 +235,26 @@ TEST (TestFour, TestMatches)
     auto card5 = four.cards[4];
     ASSERT_EQ (card5.idx, 4);
     ASSERT_EQ (card5.winners, 10);
+}
+
+TEST (TestFive, TestFivePath)
+{
+    aoc::Five five{};
+    gardenNums nums{};
+    for (const auto &line : *five.lines)
+        {
+            if (!line.empty () && isdigit (line.at (0)))
+                {
+                    Five::parseNumbers (line, &nums);
+                }
+        }
+}
+
+TEST (TestFive, TestFiveGetDest)
+{
+    auto testNum = 53;
+    gardenNums missing{ 50, 98, 2 };
+    ASSERT_EQ (missing.getDest (testNum), -1);
+    gardenNums matched{ 52, 50, 48 };
+    ASSERT_EQ (matched.getDest (testNum), 55);
 }

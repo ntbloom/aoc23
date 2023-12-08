@@ -47,7 +47,7 @@ class Four final : public Day<size_t>
     static constexpr std::string
     getReg ()
     {
-        std ::string patternBuilder ("Card\\s+\\d+:\\s+");
+        std::string patternBuilder ("Card\\s+\\d+:\\s+");
         for (auto i = 0; i < 10; i++)
             {
                 patternBuilder += "(\\d+)\\s+";
