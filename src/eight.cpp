@@ -39,17 +39,15 @@ aoc::Eight::Eight () : Day<size_t> (8)
 }
 
 size_t
-aoc::Eight::one ()
+aoc::Eight::countsToTarget (const aoc::elements *elements, const std::string &instructions,
+                            const aoc::element *start, const aoc::element *goal)
 {
     size_t counter = 0;
-    std::string target ("ZZZ");
-    std::string first = ("AAA");
-    element *current = this->_elements->at (first);
+    element *current = elements->at (start->key);
 
-    std::string instructions = this->_instructions;
     size_t i = 0;
 
-    while (current->key != target)
+    while (current->key != goal->key)
         {
             counter++;
             char instruction = instructions.at (i++);
@@ -60,10 +58,10 @@ aoc::Eight::one ()
             switch (instruction)
                 {
                 case 'L':
-                    current = this->_elements->at (current->left);
+                    current = elements->at (current->left);
                     break;
                 case 'R':
-                    current = this->_elements->at (current->right);
+                    current = elements->at (current->right);
                     break;
                 default:
                     throw std::logic_error ("invalid instruction");
@@ -71,6 +69,14 @@ aoc::Eight::one ()
         }
 
     return counter;
+}
+
+size_t
+aoc::Eight::one ()
+{
+    auto start = this->_elements->at ("AAA");
+    auto goal = this->_elements->at ("ZZZ");
+    return Eight::countsToTarget (this->_elements, this->_instructions, start, goal);
 }
 
 size_t

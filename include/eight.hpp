@@ -28,6 +28,9 @@ class Eight final : public Day<size_t>
 
     size_t two () final;
 
+    static size_t countsToTarget (const elements *elements, const std::string &instructions,
+                                  const element *start, const element *goal);
+
   private:
     elements *_elements;
     std::string _instructions;
