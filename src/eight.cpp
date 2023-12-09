@@ -55,7 +55,6 @@ aoc::Eight::one ()
             char instruction = instructions.at (i++);
             if (i == instructions.size ())
                 {
-                    std::cout << "overrun!" << std::endl;
                     i = 0;
                 }
             switch (instruction)
