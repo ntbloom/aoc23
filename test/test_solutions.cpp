@@ -8,6 +8,7 @@
 #include "five.hpp"
 #include "six.hpp"
 #include "seven.hpp"
+#include "eight.hpp"
 // clang-format on
 
 using namespace aoc;
@@ -94,4 +95,10 @@ TEST (Test_Solutions, Seven_TWO)
 {
     Seven seven{};
     EXPECT_EQ (seven.solve (2), 255632664);
+}
+
+TEST (Test_Solutions, Eight_ONE)
+{
+    Eight eight{};
+    EXPECT_EQ (eight.solve (1), 24253);
 }
