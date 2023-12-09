@@ -6,17 +6,22 @@
 namespace aoc
 {
 
-typedef std::vector<int64_t> history;
-typedef std::vector<history *> histories;
-
 struct node
 {
-    int value;
+    node ()
+    {
+        value = 0;
+        left = nullptr;
+        right = nullptr;
+    }
+
+    int64_t value;
     node *left;
     node *right;
 };
 
-void cleanup (node *nd);
+typedef std::vector<node *> history;
+typedef std::vector<history *> histories;
 
 class Nine final : public Day<int64_t>
 {
@@ -29,8 +34,12 @@ class Nine final : public Day<int64_t>
 
     int64_t two () final;
 
+    /* build a tree and return the root node */
+    static node *buildTree (history *hist);
+
   private:
     histories *_histories;
+    node *_root;
 };
 } // aoc
 
