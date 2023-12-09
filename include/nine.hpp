@@ -6,19 +6,23 @@
 namespace aoc
 {
 
-typedef std::vector<int64_t> history;
+typedef std::vector<int> history;
 typedef std::vector<history *> histories;
 
-class Nine final : public Day<size_t>
+struct node
+{
+};
+
+class Nine final : public Day<int>
 {
   public:
     Nine ();
 
     ~Nine () final;
 
-    size_t one () final;
+    int one () final;
 
-    size_t two () final;
+    int two () final;
 
   private:
     histories *_histories;

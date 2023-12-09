@@ -1,7 +1,7 @@
 #include "nine.hpp"
 #include <regex>
 
-aoc::Nine::Nine () : Day<size_t> (9)
+aoc::Nine::Nine () : Day<int> (9)
 {
     this->_histories = new histories{};
     std::regex pattern ("(-?\\d+)", std::regex_constants::ECMAScript);
@@ -27,14 +27,14 @@ aoc::Nine::Nine () : Day<size_t> (9)
         }
 }
 
-size_t
+int
 aoc::Nine::one ()
 {
 
     return -1;
 }
 
-size_t
+int
 aoc::Nine::two ()
 {
     return -2;

@@ -64,8 +64,8 @@ main (int argc, char **argv)
     assert (day > 0 && day <= 25);
     assert (puzzle == 1 || puzzle == 2);
 
-    aoc::Day<int> *intSolution{};
-    aoc::Day<size_t> *sizetSolution{};
+    aoc::Day<int> *intSolution = nullptr;
+    aoc::Day<size_t> *sizetSolution = nullptr;
 
     switch (day)
         {
@@ -94,7 +94,7 @@ main (int argc, char **argv)
             sizetSolution = new aoc::Eight ();
             break;
         case 9:
-            sizetSolution = new aoc::Nine ();
+            intSolution = new aoc::Nine ();
             break;
         default:
             throw std::runtime_error ("Illegal day!");
