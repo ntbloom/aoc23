@@ -5,6 +5,10 @@
 
 namespace aoc
 {
+
+typedef std::vector<int64_t> history;
+typedef std::vector<history *> histories;
+
 class Nine final : public Day<size_t>
 {
   public:
@@ -15,6 +19,9 @@ class Nine final : public Day<size_t>
     size_t one () final;
 
     size_t two () final;
+
+  private:
+    histories *_histories;
 };
 } // aoc
 

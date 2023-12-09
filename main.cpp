@@ -95,6 +95,7 @@ main (int argc, char **argv)
             break;
         case 9:
             sizetSolution = new aoc::Nine ();
+            break;
         default:
             throw std::runtime_error ("Illegal day!");
         }
