@@ -31,6 +31,9 @@ class Eight final : public Day<size_t>
   private:
     elements *_elements;
     std::string _instructions;
+    elements *_endsInA;
+
+    bool done ();
 };
 } // aoc
 
