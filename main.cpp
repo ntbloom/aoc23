@@ -64,7 +64,7 @@ main (int argc, char **argv)
     assert (day > 0 && day <= 25);
     assert (puzzle == 1 || puzzle == 2);
 
-    aoc::Day<int> *intSolution = nullptr;
+    aoc::Day<int64_t> *intSolution = nullptr;
     aoc::Day<size_t> *sizetSolution = nullptr;
 
     switch (day)
