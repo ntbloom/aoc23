@@ -35,6 +35,9 @@ class Eight final : public Day<size_t>
     elements *_elements;
     std::string _instructions;
     elements *_endsInA;
+    elements *_endsInZ;
+
+    size_t _counts[5][5]{};
 
     bool done ();
 };

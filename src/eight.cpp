@@ -6,7 +6,8 @@
 aoc::Eight::Eight () : Day<size_t> (8)
 {
     this->_elements = new elements{};
-    this->_endsInA = new std::map<std::string, element *>{};
+    this->_endsInA = new elements{};
+    this->_endsInZ = new elements{};
 
     size_t idx = 0;
     std::string line{};
@@ -34,6 +35,10 @@ aoc::Eight::Eight () : Day<size_t> (8)
                 {
                     this->_endsInA->insert (std::pair<std::string, element *> (key, elem));
                 }
+            else if (key.at (2) == 'Z')
+                {
+                    this->_endsInZ->insert (std::pair<std::string, element *> (key, elem));
+                }
         }
     assert (!this->_endsInA->empty ());
 }
@@ -44,10 +49,9 @@ aoc::Eight::countsToTarget (const aoc::elements *elements, const std::string &in
 {
     size_t counter = 0;
     element *current = elements->at (start->key);
-
     size_t i = 0;
 
-    while (current->key != goal->key)
+    do
         {
             counter++;
             char instruction = instructions.at (i++);
@@ -67,6 +71,7 @@ aoc::Eight::countsToTarget (const aoc::elements *elements, const std::string &in
                     throw std::logic_error ("invalid instruction");
                 }
         }
+    while (current->key != goal->key);
 
     return counter;
 }
@@ -82,38 +87,60 @@ aoc::Eight::one ()
 size_t
 aoc::Eight::two ()
 {
-
-    size_t counter = 0;
-    std::string instructions = this->_instructions;
-    size_t i = 0;
-    while (!done ())
+    size_t i = 0, j = 0;
+    for (const auto &a : *this->_endsInA)
         {
-            counter++;
-            char instruction = instructions.at (i++);
-            if (i == instructions.size ())
+            for (const auto &z : *this->_endsInZ)
                 {
-                    i = 0;
+                    this->_counts[i][j++] = Eight::countsToTarget (
+                        this->_elements, this->_instructions, this->_elements->at (a.first),
+                        this->_elements->at (z.first));
                 }
-
-            for (auto &elem : *this->_endsInA)
-                {
-                    element *next;
-                    switch (instruction)
-                        {
-                        case 'L':
-                            next = this->_elements->at (elem.second->left);
-                            elem.second = next;
-                            break;
-                        case 'R':
-                            next = this->_elements->at (elem.second->right);
-                            elem.second = next;
-                            break;
-                        default:
-                            throw std::logic_error ("bad code!");
-                        }
-                }
+            i++;
         }
-    return counter;
+
+    for (auto &_count : this->_counts)
+        {
+            for (unsigned long col : _count)
+                {
+                    std::cout << col << " ";
+                }
+            std::cout << std::endl;
+        }
+    return 0;
+
+    //
+    //    size_t counter = 0;
+    //    std::string instructions = this->_instructions;
+    //    size_t i = 0;
+    //    while (!done ())
+    //        {
+    //            counter++;
+    //            char instruction = instructions.at (i++);
+    //            if (i == instructions.size ())
+    //                {
+    //                    i = 0;
+    //                }
+    //
+    //            for (auto &elem : *this->_endsInA)
+    //                {
+    //                    element *next;
+    //                    switch (instruction)
+    //                        {
+    //                        case 'L':
+    //                            next = this->_elements->at (elem.second->left);
+    //                            elem.second = next;
+    //                            break;
+    //                        case 'R':
+    //                            next = this->_elements->at (elem.second->right);
+    //                            elem.second = next;
+    //                            break;
+    //                        default:
+    //                            throw std::logic_error ("bad code!");
+    //                        }
+    //                }
+    //        }
+    //    return counter;
 }
 
 bool
@@ -137,4 +164,5 @@ aoc::Eight::~Eight ()
         }
     delete this->_elements;
     delete this->_endsInA;
+    delete this->_endsInZ;
 }
