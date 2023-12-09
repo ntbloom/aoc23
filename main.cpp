@@ -12,6 +12,7 @@
 #include "six.hpp"
 #include "seven.hpp"
 #include "eight.hpp"
+#include "nine.hpp"
 // clang-format on
 
 int
@@ -92,6 +93,8 @@ main (int argc, char **argv)
         case 8:
             sizetSolution = new aoc::Eight ();
             break;
+        case 9:
+            sizetSolution = new aoc::Nine ();
         default:
             throw std::runtime_error ("Illegal day!");
         }
