@@ -19,12 +19,14 @@ class Nine final : public Day<int64_t>
 
     int64_t two () final;
 
-    void buildRows (histories *sequence, history *row);
+    static void buildRows (histories *sequence, history *row);
 
-    int64_t findNext (histories *);
+    static bool allZeros (history *row);
+
+    static int64_t findNext (histories *sequence);
 
   private:
-    histories *_histories;
+    histories *_inputLines;
 };
 } // aoc
 
