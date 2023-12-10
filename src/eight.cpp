@@ -70,8 +70,11 @@ aoc::Eight::two ()
         {
             auto start = this->_elements->at (e.first);
             auto loopCount = Eight::getLoopCount (this->_elements, this->_instructions, start);
-            std::cout << "seed=" << e.first << " loopCount=" << loopCount << std::endl;
+            auto zCount = Eight::getToZend (this->_elements, this->_instructions, start);
+            std::cout << "seed=" << e.first << std::endl;
+            std::cout << "\tloopCount=" << loopCount << " zCount=" << zCount << "\n" << std::endl;
         }
+
     return 0;
 }
 
@@ -112,8 +115,15 @@ aoc::Eight::getLoopCount (const aoc::elements *elements, const std::string &inst
                           const aoc::element *start)
 {
     size_t counter = 0;
+    return counter;
+}
+
+size_t
+aoc::Eight::getToZend (const aoc::elements *elements, const std::string &instructions,
+                       const aoc::element *start)
+{
+    size_t counter = 0;
     auto *current = elements->at (start->key);
-    std::set<element *> uniques{};
     size_t i = 0;
 
     do
@@ -135,9 +145,8 @@ aoc::Eight::getLoopCount (const aoc::elements *elements, const std::string &inst
                 default:
                     throw std::logic_error ("invalid instruction");
                 }
-            uniques.insert (current);
         }
-    while (uniques.size () == counter);
+    while (current->key.at (2) != 'Z');
 
     return counter;
 }

@@ -13,6 +13,8 @@ struct element
     std::string key;
     std::string left;
     std::string right;
+    size_t loopCount;
+    size_t countToZ;
 };
 
 typedef std::map<std::string, element *> elements;
@@ -33,6 +35,9 @@ class Eight final : public Day<size_t>
 
     static size_t getLoopCount (const elements *elements, const std::string &instructions,
                                 const element *start);
+
+    static size_t getToZend (const elements *elements, const std::string &instructions,
+                             const element *start);
 
   private:
     elements *_elements;
