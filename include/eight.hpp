@@ -31,15 +31,14 @@ class Eight final : public Day<size_t>
     static size_t countsToTarget (const elements *elements, const std::string &instructions,
                                   const element *start, const element *goal);
 
+    static size_t getLoopCount (const elements *elements, const std::string &instructions,
+                                const element *start);
+
   private:
     elements *_elements;
     std::string _instructions;
     elements *_endsInA;
     elements *_endsInZ;
-
-    size_t _counts[5][5]{};
-
-    bool done ();
 };
 } // aoc
 

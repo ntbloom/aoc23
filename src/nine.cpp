@@ -56,5 +56,6 @@ aoc::Nine::two ()
 aoc::node *
 aoc::Nine::buildTree (aoc::history *hist)
 {
-    auto *root = new node ();
+    //    auto *root = new node ();
+    return nullptr;
 }

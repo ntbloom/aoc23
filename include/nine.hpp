@@ -6,14 +6,14 @@
 namespace aoc
 {
 
-struct node
+struct node final
 {
-    node ()
-    {
-        value = 0;
-        left = nullptr;
-        right = nullptr;
-    }
+    //    node ()
+    //    {
+    //        this->value = 0;
+    //        this->left = nullptr;
+    //        this->right = nullptr;
+    //    }
 
     int64_t value;
     node *left;

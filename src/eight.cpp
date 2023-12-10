@@ -2,6 +2,7 @@
 #include "regex"
 #include <algorithm>
 #include <ranges>
+#include <set>
 
 aoc::Eight::Eight () : Day<size_t> (8)
 {
@@ -43,6 +44,37 @@ aoc::Eight::Eight () : Day<size_t> (8)
     assert (!this->_endsInA->empty ());
 }
 
+aoc::Eight::~Eight ()
+{
+    for (const auto &elem : *this->_elements)
+        {
+            delete elem.second;
+        }
+    delete this->_elements;
+    delete this->_endsInA;
+    delete this->_endsInZ;
+}
+
+size_t
+aoc::Eight::one ()
+{
+    auto start = this->_elements->at ("AAA");
+    auto goal = this->_elements->at ("ZZZ");
+    return Eight::countsToTarget (this->_elements, this->_instructions, start, goal);
+}
+
+size_t
+aoc::Eight::two ()
+{
+    for (const auto &e : *this->_endsInA)
+        {
+            auto start = this->_elements->at (e.first);
+            auto loopCount = Eight::getLoopCount (this->_elements, this->_instructions, start);
+            std::cout << "seed=" << e.first << " loopCount=" << loopCount << std::endl;
+        }
+    return 0;
+}
+
 size_t
 aoc::Eight::countsToTarget (const aoc::elements *elements, const std::string &instructions,
                             const aoc::element *start, const aoc::element *goal)
@@ -75,94 +107,37 @@ aoc::Eight::countsToTarget (const aoc::elements *elements, const std::string &in
 
     return counter;
 }
-
 size_t
-aoc::Eight::one ()
+aoc::Eight::getLoopCount (const aoc::elements *elements, const std::string &instructions,
+                          const aoc::element *start)
 {
-    auto start = this->_elements->at ("AAA");
-    auto goal = this->_elements->at ("ZZZ");
-    return Eight::countsToTarget (this->_elements, this->_instructions, start, goal);
-}
+    size_t counter = 0;
+    auto *current = elements->at (start->key);
+    std::set<element *> uniques{};
+    size_t i = 0;
 
-size_t
-aoc::Eight::two ()
-{
-    size_t i = 0, j = 0;
-    for (const auto &a : *this->_endsInA)
+    do
         {
-            for (const auto &z : *this->_endsInZ)
+            counter++;
+            char instruction = instructions.at (i++);
+            if (i == instructions.size ())
                 {
-                    this->_counts[i][j++] = Eight::countsToTarget (
-                        this->_elements, this->_instructions, this->_elements->at (a.first),
-                        this->_elements->at (z.first));
+                    i = 0;
                 }
-            i++;
-        }
-
-    for (auto &_count : this->_counts)
-        {
-            for (unsigned long col : _count)
+            switch (instruction)
                 {
-                    std::cout << col << " ";
+                case 'L':
+                    current = elements->at (current->left);
+                    break;
+                case 'R':
+                    current = elements->at (current->right);
+                    break;
+                default:
+                    throw std::logic_error ("invalid instruction");
                 }
-            std::cout << std::endl;
+            uniques.insert (current);
         }
-    return 0;
+    while (uniques.size () == counter);
 
-    //
-    //    size_t counter = 0;
-    //    std::string instructions = this->_instructions;
-    //    size_t i = 0;
-    //    while (!done ())
-    //        {
-    //            counter++;
-    //            char instruction = instructions.at (i++);
-    //            if (i == instructions.size ())
-    //                {
-    //                    i = 0;
-    //                }
-    //
-    //            for (auto &elem : *this->_endsInA)
-    //                {
-    //                    element *next;
-    //                    switch (instruction)
-    //                        {
-    //                        case 'L':
-    //                            next = this->_elements->at (elem.second->left);
-    //                            elem.second = next;
-    //                            break;
-    //                        case 'R':
-    //                            next = this->_elements->at (elem.second->right);
-    //                            elem.second = next;
-    //                            break;
-    //                        default:
-    //                            throw std::logic_error ("bad code!");
-    //                        }
-    //                }
-    //        }
-    //    return counter;
-}
-
-bool
-aoc::Eight::done ()
-{
-    for (const auto &elem : *this->_endsInA)
-        {
-            if (elem.second->key.at (2) != 'Z')
-                {
-                    return false;
-                }
-        }
-    return true;
-}
-
-aoc::Eight::~Eight ()
-{
-    for (const auto &elem : *this->_elements)
-        {
-            delete elem.second;
-        }
-    delete this->_elements;
-    delete this->_endsInA;
-    delete this->_endsInZ;
+    return counter;
 }
