@@ -21,8 +21,7 @@ aoc::Nine::Nine () : Day<int64_t> (9)
                 {
                     const std::smatch &match = *i;
                     auto num = strtol (match.str ().c_str (), &end, 10);
-                    auto *n = new node{ .value = num, .left = nullptr, .right = nullptr };
-                    hist->push_back (n);
+                    hist->push_back (num);
                 }
             this->_histories->push_back (hist);
         }
@@ -30,13 +29,9 @@ aoc::Nine::Nine () : Day<int64_t> (9)
 
 aoc::Nine::~Nine ()
 {
-    for (auto hist : *this->_histories)
+    for (auto h : *this->_histories)
         {
-            for (auto n : *hist)
-                {
-                    delete n;
-                }
-            delete hist;
+            delete h;
         }
     delete this->_histories;
 }
@@ -44,6 +39,15 @@ aoc::Nine::~Nine ()
 int64_t
 aoc::Nine::one ()
 {
+    int64_t answer = 0;
+
+    for (const auto &row : *this->_histories)
+        {
+            auto *sequence = new histories{};
+            this->buildRows (sequence, row);
+            answer += this->findNext (sequence);
+            delete sequence;
+        }
     return -1;
 }
 
@@ -53,9 +57,13 @@ aoc::Nine::two ()
     return -2;
 }
 
-aoc::node *
-aoc::Nine::buildTree (aoc::history *hist)
+void
+aoc::Nine::buildRows (histories *sequence, history *row)
 {
-    //    auto *root = new node ();
-    return nullptr;
+}
+
+int64_t
+aoc::Nine::findNext (aoc::histories *)
+{
+    return 0;
 }
