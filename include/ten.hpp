@@ -33,6 +33,12 @@ class Ten final : public Day<size_t>
 
     size_t two () final;
 
+    void findNeighbors (pipeNode *node);
+    static bool fromSouth (pipeNode *node);
+    static bool fromNorth (pipeNode *node);
+    static bool fromWest (pipeNode *node);
+    static bool fromEast (pipeNode *node);
+
     void printMap ();
 
   private:
