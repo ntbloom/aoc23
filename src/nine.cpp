@@ -1,5 +1,4 @@
 #include "nine.hpp"
-#include <cstring>
 #include <regex>
 
 aoc::Nine::Nine () : Day<int64_t> (9)
@@ -11,10 +10,6 @@ aoc::Nine::Nine () : Day<int64_t> (9)
     while (this->_filestream)
         {
             getline (this->_filestream, line);
-            if (line.empty ())
-                {
-                    break;
-                }
             auto *hist = new history{};
             auto nums = std::sregex_iterator (line.begin (), line.end (), pattern);
             auto numend = std::sregex_iterator ();
@@ -52,7 +47,59 @@ aoc::Nine::one ()
                 }
 
             Nine::buildRows (sequence, start);
+            auto firstRow = sequence->at (0);
+            auto before = firstRow->at (firstRow->size () - 1);
 
+            //            for (auto row : *sequence)
+            //                {
+            //                    for (auto num : *row)
+            //                        {
+            //                            std::cout << num << " ";
+            //                        }
+            //                    std::cout << std::endl;
+            //                }
+
+            Nine::addNext (sequence);
+            answer += firstRow->at (firstRow->size () - 1);
+
+            auto after = firstRow->at (firstRow->size () - 1);
+            if (before == 44108)
+                {
+                    std::cout << "";
+                }
+            //            std::cout << "before=" << firstRow->at (firstRow->size () - 1);
+            //            std::cout << " after=" << after << std::endl;
+            //            std::cout << std::endl;
+
+            for (auto *s : *sequence)
+                {
+                    delete s;
+                }
+            delete sequence;
+        }
+    return answer;
+}
+
+int64_t
+aoc::Nine::two ()
+{
+    int64_t answer = 0;
+
+    for (const auto &input : *this->_inputLines)
+        {
+            auto *sequence = new histories{};
+            auto *start = new history{};
+            for (auto i : *input)
+                {
+                    start->push_back (i);
+                }
+
+            Nine::buildRows (sequence, start);
+            auto firstRow = sequence->at (0);
+            Nine::addPrev (sequence);
+            auto first = firstRow->at (0);
+            std::cout << first << std::endl;
+            answer += first;
             for (auto row : *sequence)
                 {
                     for (auto num : *row)
@@ -61,22 +108,14 @@ aoc::Nine::one ()
                         }
                     std::cout << std::endl;
                 }
-            std::cout << std::endl;
 
-            answer += this->findNext (sequence);
             for (auto *s : *sequence)
                 {
                     delete s;
                 }
             delete sequence;
         }
-    return -1;
-}
-
-int64_t
-aoc::Nine::two ()
-{
-    return -2;
+    return answer;
 }
 
 void
@@ -85,6 +124,7 @@ aoc::Nine::buildRows (histories *sequence, history *row)
     sequence->push_back (row);
     if (allZeros (row))
         {
+            row->push_back (0);
             return;
         }
 
@@ -98,10 +138,32 @@ aoc::Nine::buildRows (histories *sequence, history *row)
     buildRows (sequence, next);
 }
 
-int64_t
-aoc::Nine::findNext (aoc::histories *sequence)
+void
+aoc::Nine::addNext (aoc::histories *sequence)
 {
-    return 0;
+    for (auto i = sequence->size () - 1; i != 0; i--)
+        {
+            auto current = sequence->at (i);
+            auto above = sequence->at (i - 1);
+            auto currentEnd = current->at (current->size () - 1);
+            auto aboveEnd = above->at (above->size () - 1);
+            above->push_back (currentEnd + aboveEnd);
+        }
+}
+
+void
+aoc::Nine::addPrev (aoc::histories *sequence)
+{
+    for (auto i = sequence->size () - 1; i != 0; i--)
+        {
+            auto current = sequence->at (i);
+            auto above = sequence->at (i - 1);
+            auto currentStart = current->at (0);
+            auto aboveStart = above->at (0);
+
+            std::cout << std::endl;
+            above->insert (above->begin (), aboveStart - currentStart);
+        }
 }
 
 bool

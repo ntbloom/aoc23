@@ -23,7 +23,9 @@ class Nine final : public Day<int64_t>
 
     static bool allZeros (history *row);
 
-    static int64_t findNext (histories *sequence);
+    static void addNext (histories *sequence);
+
+    static void addPrev (histories *sequence);
 
   private:
     histories *_inputLines;
