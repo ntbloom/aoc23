@@ -5,6 +5,18 @@
 
 namespace aoc
 {
+
+struct pipeNode
+{
+    pipeNode *north;
+    pipeNode *south;
+    pipeNode *east;
+    pipeNode *west;
+    char value;
+};
+typedef std::array<pipeNode *, 140> pipeRow;
+typedef std::array<pipeRow, 140> pipeMap;
+
 class Ten final : public Day<size_t>
 {
   public:
@@ -16,8 +28,11 @@ class Ten final : public Day<size_t>
 
     size_t two () final;
 
-    char _map[140][140];
     void printMap ();
+
+  private:
+    pipeMap *_map;
+    std::pair<size_t, size_t> start;
 };
 } // aoc
 
