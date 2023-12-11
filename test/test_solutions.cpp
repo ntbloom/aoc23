@@ -10,6 +10,7 @@
 #include "seven.hpp"
 #include "eight.hpp"
 #include "nine.hpp"
+#include "ten.hpp"
 // clang-format on
 
 using namespace aoc;
@@ -120,4 +121,10 @@ TEST (Test_Solutions, Nine_TWO)
 {
     Nine nine{};
     EXPECT_EQ (nine.solve (2), 1082);
+}
+
+TEST (Test_Solutions, Ten_ONE)
+{
+    Ten ten{};
+    EXPECT_EQ (ten.solve (1), 6931);
 }
