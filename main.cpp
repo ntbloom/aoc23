@@ -11,6 +11,8 @@
 #include "five.hpp"
 #include "six.hpp"
 #include "seven.hpp"
+#include "eight.hpp"
+#include "nine.hpp"
 // clang-format on
 
 int
@@ -62,8 +64,8 @@ main (int argc, char **argv)
     assert (day > 0 && day <= 25);
     assert (puzzle == 1 || puzzle == 2);
 
-    aoc::Day<int> *intSolution{};
-    aoc::Day<size_t> *sizetSolution{};
+    aoc::Day<int64_t> *intSolution = nullptr;
+    aoc::Day<size_t> *sizetSolution = nullptr;
 
     switch (day)
         {
@@ -87,6 +89,12 @@ main (int argc, char **argv)
             break;
         case 7:
             sizetSolution = new aoc::Seven ();
+            break;
+        case 8:
+            sizetSolution = new aoc::Eight ();
+            break;
+        case 9:
+            intSolution = new aoc::Nine ();
             break;
         default:
             throw std::runtime_error ("Illegal day!");

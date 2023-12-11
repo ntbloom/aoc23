@@ -4,12 +4,12 @@
 #include <fstream>
 #include <vector>
 
-aoc::One::One () : Day<int> (1) {}
+aoc::One::One () : Day<int64_t> (1) {}
 
-int
+int64_t
 aoc::One::one ()
 {
-    int answer = 0;
+    int64_t answer = 0;
     assert (this->_filestream);
     while (this->_filestream)
         {
@@ -20,10 +20,10 @@ aoc::One::one ()
     return answer;
 }
 
-int
+int64_t
 aoc::One::two ()
 {
-    int answer = 0;
+    int64_t answer = 0;
     assert (this->_filestream);
     while (this->_filestream)
         {
@@ -35,7 +35,7 @@ aoc::One::two ()
     return answer;
 }
 
-int
+int64_t
 aoc::One::calibrate (const std::string &input)
 {
     long first = 0, last = 0;
@@ -61,10 +61,10 @@ aoc::One::calibrate (const std::string &input)
         }
     auto combined = std::format ("{}{}", first, last);
     char *end;
-    return (int)strtol (combined.c_str (), &end, 10);
+    return strtol (combined.c_str (), &end, 10);
 }
 
-int
+int64_t
 aoc::One::recalibrate (const std::string &input)
 {
     std::vector<int> inputs (input.length ());
@@ -119,7 +119,7 @@ aoc::One::recalibrate (const std::string &input)
         }
     auto combined = std::format ("{}{}", first, last);
     char *end;
-    return (int)strtol (combined.c_str (), &end, 10);
+    return strtol (combined.c_str (), &end, 10);
 }
 
 aoc::One::~One () = default;
