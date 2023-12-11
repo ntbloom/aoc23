@@ -51,8 +51,9 @@ aoc::Ten::~Ten ()
 size_t
 aoc::Ten::one ()
 {
-    printMap ();
-    return -1;
+    this->dfs (this->_start);
+    //    printMap ();
+    return count / 2;
 }
 
 size_t
@@ -68,7 +69,15 @@ aoc::Ten::printMap ()
         {
             for (const auto &col : row)
                 {
+                    if (col->visited)
+                        {
+                            std::cout << "\033[0;31m";
+                        }
                     std::cout << col->value;
+                    if (col->visited)
+                        {
+                            std::cout << "\033[0m";
+                        }
                 }
             std::cout << "\n";
         }
@@ -204,4 +213,28 @@ aoc::Ten::fromEast (aoc::pipeNode *node)
         default:
             return false;
         }
+}
+
+void
+aoc::Ten::dfs (aoc::pipeNode *node)
+{
+    node->visited = true;
+    if (count++ != 0 && node == this->_start)
+        {
+            return;
+        }
+    this->findNeighbors (node);
+    for (auto n : std::array<pipeNode *, 4>{ node->north, node->south, node->east, node->west })
+        {
+            if (n && !n->visited)
+                {
+                    dfs (n);
+                }
+        }
+}
+
+bool
+operator== (const aoc::pipeNode &one, const aoc::pipeNode &two)
+{
+    return one.x == two.x && one.y == two.y;
 }
