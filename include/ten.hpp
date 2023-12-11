@@ -12,6 +12,11 @@ struct pipeNode
     pipeNode *south;
     pipeNode *east;
     pipeNode *west;
+
+    bool visited;
+
+    size_t x;
+    size_t y;
     char value;
 };
 typedef std::array<pipeNode *, 140> pipeRow;
@@ -32,7 +37,7 @@ class Ten final : public Day<size_t>
 
   private:
     pipeMap *_map;
-    std::pair<size_t, size_t> start;
+    pipeNode *_start;
 };
 } // aoc
 

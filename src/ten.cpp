@@ -13,15 +13,23 @@ aoc::Ten::Ten () : Day<size_t> (10)
                     break;
                 }
             auto idx = 0;
-            for (auto col = 0; col < 140; col++)
+            for (size_t col = 0; col < 140; col++)
                 {
                     auto ch = line.at (idx++);
-                    auto *node = new pipeNode{};
-                    node->value = ch;
+                    auto *node = new pipeNode{
+                        .north = nullptr,
+                        .south = nullptr,
+                        .east = nullptr,
+                        .west = nullptr,
+                        .visited = false,
+                        .x = lineNum,
+                        .y = col,
+                        .value = ch,
+                    };
                     this->_map->at (lineNum).at (col) = node;
                     if (ch == 'S')
                         {
-                            start = std::pair<size_t, size_t> (lineNum, col);
+                            this->_start = node;
                         }
                 }
             lineNum++;
