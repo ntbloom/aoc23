@@ -4,6 +4,7 @@ aoc::Eleven::Eleven () : Day<size_t> (11)
 {
     std::string line;
     size_t rowIdx = 0;
+    std::array<size_t, 148> columnCount{};
     while (this->_filestream)
         {
             getline (this->_filestream, line);
@@ -13,22 +14,31 @@ aoc::Eleven::Eleven () : Day<size_t> (11)
                 }
             this->_lines.push_back (line);
             bool empty = true;
-            for (auto i = 0; i < line.length () - 1; i++)
+            for (size_t i = 0; i < line.length () - 1; i++)
                 {
                     auto ch = line.at (i);
                     if (ch == '#')
                         {
+                            columnCount.at (i) += 1;
                             empty = false;
-                            break;
+                        }
+                    else
+                        {
                         }
                 }
             if (empty)
                 {
-                    this->_emptyRows.push_back (rowIdx);
+                    this->_emptyRows.insert (rowIdx);
                 }
             rowIdx++;
         }
-    /* find a way to mark empty columns */
+    for (auto i = 0; i < columnCount.size () - 1; i++)
+        {
+            if (columnCount.at (i) == 0)
+                {
+                    this->_emptyColumns.insert (i);
+                }
+        }
 }
 
 size_t

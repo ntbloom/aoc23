@@ -2,6 +2,7 @@
 #define AOC23_ELEVEN_HPP
 
 #include "day.hpp"
+#include <set>
 
 namespace aoc
 {
@@ -13,24 +14,8 @@ struct galaxyNode
     size_t y;
 };
 
-typedef std::vector<galaxyNode *> cosmosRow;
-
-struct cosmos
-{
-    std::vector<cosmosRow> rows;
-
-    cosmos () = default;
-    ~cosmos ()
-    {
-        for (const auto &r : this->rows)
-            {
-                for (auto galPtr : r)
-                    {
-                        delete galPtr;
-                    }
-            }
-    }
-};
+typedef std::vector<galaxyNode *> galaxyRow;
+typedef std::vector<galaxyRow> cosmos;
 
 class Eleven final : public Day<size_t>
 {
@@ -44,9 +29,10 @@ class Eleven final : public Day<size_t>
     size_t two () final;
 
   private:
+    cosmos *_cosmos;
     std::vector<std::string> _lines{};
-    std::vector<size_t> _emptyColumns;
-    std::vector<size_t> _emptyRows;
+    std::set<size_t> _emptyColumns{};
+    std::set<size_t> _emptyRows{};
 };
 } // aoc
 
